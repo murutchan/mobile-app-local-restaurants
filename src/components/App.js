@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 
 import {
@@ -16,20 +8,10 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
+import RestaurantsScreen from './features/restaurants/screens/restaurants.screen';
 
-// const isAndroid = (Platform.OS = 'android');
 const App = () => {
-  return (
-    <SafeAreaView
-      style={[styles.container, {marginTop: StatusBar.currentHeight}]}>
-      <View style={styles.searchBox}>
-        <Text style={styles.searchBoxText}>search</Text>
-      </View>
-      <View style={styles.searchList}>
-        <Text style={styles.searchListText}>List</Text>
-      </View>
-    </SafeAreaView>
-  );
+  return <RestaurantsScreen />;
 };
 
 const styles = StyleSheet.create({
@@ -37,16 +19,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   searchBox: {
-    flex: 0.5,
+    flex: 0.8,
     backgroundColor: 'blue',
     color: '#fff',
     alignContent: 'center',
   },
-  searchBoxText: {
+  searchBar: {
     color: '#fff',
     alignItems: 'center',
-    paddingTop: 10,
-    paddingHorizontal: 10,
+    margin: 8,
   },
   searchList: {
     flex: 9,
