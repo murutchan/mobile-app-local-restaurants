@@ -1,11 +1,36 @@
 import React from 'react';
-import {Text, View, FlatList, StyleSheet, Image} from 'react-native';
-import {Avatar, Button, Card, Paragraph} from 'react-native-paper';
+import {Text, View} from 'react-native';
+import {Card} from 'react-native-paper';
 import styled from 'styled-components/native';
+// import {SvgXml} from 'react-native-svg';
+// import starSVG from '../../../../../assets/star';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Title = styled.Text`
-  padding: 16px;
-  color: red;
+  padding-top: ${props => props.theme.space[3]};
+  color: ${props => props.theme.colors.ui.primary};
+  /* font-family: ${props => props.theme.fonts.heading}; */
+`;
+
+const Address = styled.Text`
+  padding-top: ${props => props.theme.space[2]};
+  font-size: ${props => props.theme.fontSizes.caption};
+`;
+
+const RestaurantCard = styled(Card)`
+  margin-top: ${props => props.theme.space[1]};
+`;
+
+const RestaurantImage = styled(Card.Cover)`
+  padding: ${props => props.theme.space[2]};
+  padding-bottom: 0;
+  background-color: white;
+`;
+
+const RatingView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: ${props => props.theme.space[0]};
 `;
 
 const RestaurantInfoCard = ({restaurant = {}}) => {
@@ -19,25 +44,27 @@ const RestaurantInfoCard = ({restaurant = {}}) => {
     isClosedTemporarily,
   } = restaurant;
 
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
+
   return (
-    <Card style={styles.cardContainer} elevation={5}>
-      <Card.Cover key={name} source={{uri: photos[0]}} style={styles.image} />
+    <RestaurantCard elevation={5}>
+      <RestaurantImage key={name} source={{uri: photos[0]}} />
       <Card.Content>
-        <Title>{name}</Title>
-        <Paragraph>{address}</Paragraph>
+        <Title>{name.toUpperCase()}</Title>
+        <RatingView>
+          <View style={{flexDirection: 'row'}}>
+            {ratingArray.map(() => (
+              <Icon name="star" size={22} color="orange" />
+            ))}
+          </View>
+          <Text style={{color: isOpenNow ? 'green' : 'red'}}>
+            {isOpenNow ? 'Open' : 'Closed'}
+          </Text>
+        </RatingView>
+        <Address>{address}</Address>
       </Card.Content>
-    </Card>
+    </RestaurantCard>
   );
 };
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    margin: 10,
-  },
-  image: {
-    padding: 10,
-    paddingBottom: 0,
-  },
-});
 
 export default RestaurantInfoCard;
